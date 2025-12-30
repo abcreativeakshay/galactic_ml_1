@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, Download, Brain, FileJson, FileCode, Loader2, CheckCircle, AlertCircle, BookOpen, Home } from 'lucide-react';
 import Papa from 'papaparse';
-import { supabase } from './services/supabaseClient';
 import { analyzeDataset } from './services/geminiService';
 import { generateNotebook, convertNotebookToPython, type NotebookConfig } from './services/notebookGenerator';
 import AlgorithmExplorer from './components/AlgorithmExplorer';
@@ -318,18 +317,6 @@ function App() {
     setProgress('Initializing notebook generation...');
 
     try {
-      const notebookId = crypto.randomUUID();
-
-      await supabase.from('generated_notebooks').insert({
-        id: notebookId,
-        dataset_name: datasetInfo.name,
-        dataset_info: datasetInfo,
-        problem_type: problemType,
-        target_column: targetColumn,
-        selected_models: selectedModels,
-        status: 'generating'
-      });
-
       const config: NotebookConfig = {
         datasetName: datasetInfo.name,
         problemType,
@@ -350,12 +337,6 @@ function App() {
       const notebook = await generateNotebook(config);
 
       setProgress('Finalizing notebook...');
-      await supabase.from('generated_notebooks').update({
-        notebook_content: JSON.stringify(notebook),
-        status: 'completed',
-        updated_at: new Date().toISOString()
-      }).eq('id', notebookId);
-
       setGeneratedNotebook(notebook);
       setStep('complete');
       setProgress('Notebook generated successfully!');
@@ -963,7 +944,7 @@ function App() {
             <Brain className="w-6 h-6 text-cyan-400/50" />
             <span className="text-xl font-black text-white tracking-tight">GALACTIC<span className="text-cyan-400">ML</span></span>
           </div>
-          <p className="text-gray-500 text-xs uppercase tracking-[0.2em] font-bold">Powered by Gemini AI • Built with React & Supabase</p>
+          <p className="text-gray-500 text-xs uppercase tracking-[0.2em] font-bold">Powered by Gemini AI • Built with React</p>
         </footer>
       </div>
     </div>
