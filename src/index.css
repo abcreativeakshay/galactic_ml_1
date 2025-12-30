@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+.geometric-pattern {
+  background-image:
+    linear-gradient(90deg, rgba(41, 181, 232, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(41, 181, 232, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.diagonal-lines {
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(41, 181, 232, 0.15) 35px, rgba(41, 181, 232, 0.15) 70px),
+    repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(41, 181, 232, 0.15) 35px, rgba(41, 181, 232, 0.15) 70px);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(41, 181, 232, 0.5), 0 0 40px rgba(41, 181, 232, 0.3);
+}
+
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(41, 181, 232, 0.03) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(41, 181, 232, 0.03) 2px, transparent 2px);
+  background-size: 100px 100px;
+  background-position: -2px -2px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(41, 181, 232, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(41, 181, 232, 0.6); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(41, 181, 232, 0.5);
+  border-radius: 50%;
+  animation: particle-float 20s infinite;
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100px, -100vh) scale(0);
+    opacity: 0;
+  }
+}
